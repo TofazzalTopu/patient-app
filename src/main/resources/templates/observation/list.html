@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Observation List</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+
+    <link href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+</head>
+<body>
+
+<div th:replace="fragments/header :: header"></div>
+
+<div class="content-wrapper">
+    <div id="overlay">
+        <!--<img th:src="@{/assets/img/loader.gif}" width="100px"> Loading...-->
+    </div>
+
+    <div class="container">
+
+        <h2>Observation Table -Observation List</h2>
+        <div class="form-group right-arrow navbar-right">
+            <h5>
+                <span> Observation: <a th:href="@{/patient/list}"> Patients List
+<!--                <span> Observation: <a th:href="@{/observations/create/{patientId}(patientId=${observation.getPatient().getId()})}"> Create Observation-->
+								</a></span>
+            </h5>
+        </div>
+
+        <div class="box col-md-12">
+            <div class="box-body">
+                <label style="padding-left: 30%; color: red; align-content: center;" th:if="${error}"
+                       th:text="${error}"/>
+                <label style="padding-left: 30%; color: green; align-content: center;" th:if="${success}"
+                       th:text="${success}"/>
+                <div class="table-responsive-lg">
+                    <table id="observationTable"
+                           class="table table-striped table-bordered table-hover table-sm"
+                           cellspacing="0">
+                        <caption class="info"> Observation List</caption>
+                        <thead>
+                        <tr>
+                            <th> Serial </th>
+                            <th hidden> ID</th>
+                            <th> Action</th>
+                            <th> Patient Name</th>
+                            <th> Height</th>
+                            <th> Weight</th>
+                            <th> BMI</th>
+                            <th> BP</th>
+
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr th:each="observation, iter : ${observationList}">
+                            <td th:text="${iter.count}"></td>
+
+                            <td hidden th:text="${observation.getId()}"></td>
+                            <td style="text-align: center;">
+                                <a th:href="@{/observations/viewDetails/{id}(id=${observation.getId()})}" title="View"
+                                   class="btn btn-xs btn-success"> <i class="fa fa-eye"></i></a>
+                                <span>
+                                <a th:href="@{/observations/delete/{id}(id=${observation.getId()})}" title="Delete"
+                                   onclick="return confirm(' Are you sure you want to delete?');"
+                                   class="btn btn-xs btn-warning"> <span class="glyphicon glyphicon-off"></span> </a>
+                            </span>
+                            </td>
+
+                            <td class="customDesign"
+                                th:text="${observation.getPatient().getUser().getUsername()}"></td>
+                            <td th:text="${observation.getHeight()}"></td>
+                            <td class="customDesign" th:text="${observation.getWeight()}"></td>
+                            <td class="customDesign" th:text="${observation.getBMI()}"></td>
+                            <td class="customDesign" th:text="${observation.getBP()}"></td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>

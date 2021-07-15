@@ -13,8 +13,7 @@ public class HomeController {
 
     @GetMapping("/")
     String index(Principal principal) {
-        System.out.println("principal: "+ principal.getName());
-        return principal != null ? "redirect:/prescription/list" : "redirect:/login";
+        return principal != null ? "redirect:/patient/list" : "redirect:/login";
     }
 
 }

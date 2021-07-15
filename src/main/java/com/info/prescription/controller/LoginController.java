@@ -27,7 +27,7 @@ public class LoginController {
         boolean isLoggedIn = userService.isLoggedIn();
         if (isLoggedIn) {
             model.addAttribute("isLoggedIn", isLoggedIn);
-            return "prescription/prescription_list";
+            return "patient_list";
         }
         model.addAttribute("isLoggedIn", isLoggedIn);
         return "login/login";

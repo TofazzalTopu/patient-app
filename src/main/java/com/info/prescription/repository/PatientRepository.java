@@ -1,5 +1,6 @@
 package com.info.prescription.repository;
 
+import com.info.prescription.model.Patient;
 import com.info.prescription.model.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
@@ -7,9 +8,9 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 @Repository
-public interface UserRepository extends JpaRepository<User, Long> {
-    User findByUsername(String username);
-    List<User> findAllByUserType(String userType);
+public interface PatientRepository extends JpaRepository<Patient, Long> {
 
-//    void delete(Optional<User> user);
+    List<Patient> findAllByUser(User user);
+//    List<Patient> findAllByPatientId(String patientId);
+
 }

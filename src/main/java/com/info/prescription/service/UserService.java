@@ -18,14 +18,14 @@ public class UserService {
     private UserRepository userRepository;
 
 
-    public List<User> getUserList() {
-
-        List<User> userList = userRepository.findAll();
-        return userList;
+    public List<User> findAll() {
+        return userRepository.findAll();
+    }
+    public List<User> findAllByUserType(String userType) {
+        return userRepository.findAllByUserType(userType);
     }
 
     public boolean saveUser(User user) {
-
         try {
             User savedUser = userRepository.save(user);
             return true;

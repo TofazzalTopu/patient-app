@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Patient List</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+
+    <!--    <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>-->
+    <!--    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>-->
+    <!--    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css"/>-->
+    <!--    <script th:src="@{/assets/js/patient.js}"></script>-->
+    <link href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+    <!--Library file for Datatable-->
+    <!--    <script type="text/javascript" src="https://cdn.datatables.net/buttons/1.6.1/js/buttons.html5.min.js"></script>-->
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.20/css/jquery.dataTables.min.css">
+    <script type="text/javascript" src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js"></script>
+    <link rel="stylesheet" type="text/css"
+          href="https://cdn.datatables.net/buttons/1.6.2/css/buttons.dataTables.min.css">
+    <!--     <script type="text/javascript" src="https://cdn.datatables.net/buttons/1.6.1/js/dataTables.buttons.min.js"></script>-->
+    <!--     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>-->
+    <!--     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/pdfmake.min.js"></script>-->
+    <!--     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.js"></script>-->
+    <!--     <script type="text/javascript" src="https://cdn.datatables.net/buttons/1.6.2/js/buttons.html5.min.js"></script>-->
+
+    <!--    <script src="//cdnjs.cloudflare.com/ajax/libs/datatables/1.10.19/js/dataTables.bootstrap.min.js"></script>-->
+    <!--    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>-->
+
+
+    <!--https://code.jquery.com/jquery-3.5.1.js-->
+
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+            /*$('#patientTable').DataTable({
+                "scrollX": true,
+                "order": [
+                    [8, "desc"]
+                ]
+                // ,"scrollY": 400,
+            });*/
+            // $('.dataTables_length').addClass('bs-select');
+        });
+    </script>
+
+</head>
+<body>
+
+<!--<div th:replace="fragments/header :: header"></div>-->
+
+<div class="content-wrapper">
+    <div id="overlay">
+        <!--<img th:src="@{/assets/img/loader.gif}" width="100px"> Loading...-->
+    </div>
+
+    <div class="container">
+
+        <h2>Patient Table -Patient List</h2>
+        <div class="form-group right-arrow navbar-right">
+            <h5>
+                <span> Patient: <a th:href="@{/patient/createForm}"> Create Patient
+								</a></span>
+            </h5>
+        </div>
+        <!--        <p style="text-align: center">Date Range Query: <input id="pmsDateRangePicker" readonly="readonly"></p>-->
+
+        <div class="box col-md-12">
+            <div class="box-body">
+                <label style="padding-left: 30%; color: red; align-content: center;" th:if="${error}"
+                       th:text="${error}"/>
+                <label style="padding-left: 30%; color: green; align-content: center;" th:if="${success}"
+                       th:text="${success}"/>
+                <div class="table-responsive-lg">
+                    <table id="patientTable"
+                           class="table table-striped table-bordered table-hover table-sm"
+                           cellspacing="0">
+                        <caption class="info"> Patient List</caption>
+                        <thead>
+
+                        <tr>
+                            <th>
+                                Serial
+                            </th>
+                            <th hidden> ID</th>
+                            <th>Action</th>
+                            <th> Patient Name</th>
+                            <th> Blood Group</th>
+                            <th>Admission Date</th>
+                            <th> Create Date</th>
+                            <th>Update Date</th>
+
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr th:each="patient, iter : ${patientList}">
+                            <td th:text="${iter.count}"></td>
+                            <td hidden th:text="${patient.getId()}"></td>
+                            <td style="text-align: center;">
+                                <a th:href="@{/observations/list/{id}(id=${patient.getId()})}" title="View Observations"
+                                   class="btn btn-xs btn-success"> <i class="fa fa-eye"></i></a>
+                                <a th:href="@{/patient/viewDetails/{id}(id=${patient.getId()})}" title="View"
+                                   class="btn btn-xs btn-success"> <i class="fa fa-eye"></i></a>
+                                <span>
+                                <a th:href="@{/patient/delete/{id}(id=${patient.getId()})}" title="Delete"
+                                   onclick="return confirm(' Are you sure you want to delete?');"
+                                   class="btn btn-xs btn-warning"> <span class="glyphicon glyphicon-off"></span> </a>
+                            </span>
+                            </td>
+
+                            <td class="customDesign"
+                                th:text="${patient.getUser().getUsername()}"></td>
+
+                            <!--<div th:switch="${patient.getGender()}">
+                                <td
+                                    th:case="'M'">Male
+                                </td>
+                                <td
+                                    th:case="'F'"> Female
+                                </td>
+                            </div>-->
+
+                            <td
+                                    th:text="${patient.getBloodGroup()}"></td>
+
+                            <!--<td class="customDesign"
+                                th:text="${patient.getDiagnosis()}"></td>
+                            <td class="customDesign"
+                                th:text="${patient.getMedicines()}"></td>-->
+                            <td
+                                    th:text="${#dates.format(patient.getAdmissionDate(), 'dd-MM-yyyy')}">
+                            </td>
+
+                            <td
+                                    th:text="${#dates.format(patient.getCreateDate(), 'dd-MM-yyyy')}">
+                            </td>
+                            <td
+                                    th:text="${#dates.format(patient.getUpdateDate(), 'dd-MM-yyyy')}">
+                            </td>
+
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title> Update Observation </title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+</head>
+<body>
+<div th:replace="fragments/header :: header"></div>
+
+<div class="container">
+    <form id="app" role="form" th:action="@{/observations/edit/{id}(id=${observation.getId()})}"
+          th:object="${observation}"
+          method="post">
+        <div class="box-body">
+            <div class="row col-md-12">
+                <div class="form-group">
+
+                    <h2> View Observation Details</h2> <br/>
+                    <div class="form-group right-arrow navbar-right">
+                        <h5>
+                             <span> Observation: <a th:href="@{/observations/list/{patientId}(patientId=${observation.getPatient().getId()})}"> Observation List
+								</a></span>
+                        </h5>
+                    </div>
+
+                    <label style="padding-left: 30%; color: red; align-content: center;" th:if="${error}"
+                           th:text="${error}"/>
+                    <label style="padding-left: 30%; color: green; align-content: center;" th:if="${success}"
+                           th:text="${success}"/>
+                </div>
+            </div>
+
+            <input type="hidden" th:id="patientId"
+                   th:name="patientId" th:value="${observation.getPatient().getId()}"
+                   class="form-control" autofocus="autofocus">
+            <div class="form-group col-md-4">
+                <label for="height">Enter Height: &nbsp;<span style="color: red;">*</span></label>
+                <input readonly type="text" th:field="*{height}" id="height"
+                       name="height" th:value="${observation.height}"
+                       class="form-control" autofocus="autofocus">
+                <label th:if="${#fields.hasErrors('height')}" th:errors="*{height}"
+                       th:class="'error text-danger'"> Enter Height </label>
+            </div>
+
+            <div class="form-group col-md-4">
+                <label for="height">Enter weight: &nbsp;<span style="color: red;">*</span></label>
+                <input readonly type="text" th:field="*{weight}" id="weight"
+                       name="weight" th:value="${observation.weight}"
+                       class="form-control" autofocus="autofocus">
+                <label th:if="${#fields.hasErrors('weight')}" th:errors="*{weight}"
+                       th:class="'error text-danger'"> Enter Weight </label>
+            </div>
+
+            <div class="form-group col-md-4">
+                <label for="height">Enter BMI: &nbsp;<span style="color: red;">*</span></label>
+                <input readonly type="text" th:field="*{BMI}" id="BMI"
+                       name="BMI" th:value="${observation.BMI}"
+                       class="form-control" autofocus="autofocus">
+                <label th:if="${#fields.hasErrors('BMI')}" th:errors="*{BMI}"
+                       th:class="'error text-danger'"> Enter BMI </label>
+            </div>
+            <div class="form-group col-md-4">
+                <label for="height">Enter BP: &nbsp;<span style="color: red;">*</span></label>
+                <input readonly type="text" th:field="*{BP}" id="BP"
+                       name="BP" th:value="${observation.BP}"
+                       class="form-control" autofocus="autofocus">
+                <label th:if="${#fields.hasErrors('BP')}" th:errors="*{BP}"
+                       th:class="'error text-danger'"> Enter BP </label>
+            </div>
+        </div>
+
+        <div class="row col-md-12">
+            <div class="form-group col-md-4">
+                <a th:href="@{/observations/edit/{id}(id=${observation.getId()})}">
+                    <button type="button" name="submit" th:id="submit" class="btn btn-primary">Edit</button>
+                </a>
+            </div>
+        </div>
+    </form>
+</div>
+</body>
+</html>

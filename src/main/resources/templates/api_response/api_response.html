@@ -11,7 +11,7 @@
 
     <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
     <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
-    <script th:src="@{/assets/js/prescription.js}"></script>
+    <script th:src="@{/assets/js/patient.js}"></script>
     <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css"/>
 
     <!--Library file for Datatable-->
@@ -43,7 +43,7 @@
     <h2> API Response - Min Concept Item List</h2>
     <div class="form-group right-arrow navbar-right">
         <h5>
-                <span> Prescription: <a th:href="@{/prescription/list}"> Prescription List
+                <span> Patient: <a th:href="@{/patient/list}"> Patient List
 								</a></span>
         </h5>
     </div>
@@ -88,7 +88,7 @@
                 </tbody>
             </table>
         </div>
-        <!--<div th:replace="fragments/footer :: footer">&copy; 2020 Prescription project</div>-->
+        <!--<div th:replace="fragments/footer :: footer">&copy; 2021 Patient project</div>-->
     </div>
 </div>
 

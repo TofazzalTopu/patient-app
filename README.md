@@ -1,6 +1,6 @@
 # Project Title
 
-## Sample Spring Boot application for Prescription Entry
+## Sample Spring Boot application for patient Entry
 * Project home url: http://localhost:8080/login
 * Create User using Create user form (There is a register here link in login form).
 * During user creation encrypted password will be  stored in DB.

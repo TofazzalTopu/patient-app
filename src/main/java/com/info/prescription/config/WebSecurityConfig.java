@@ -9,9 +9,12 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.web.servlet.config.annotation.EnableWebMvc;
+import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 
 @Configuration
 @EnableWebSecurity
+@EnableWebMvc
 @EnableGlobalMethodSecurity(securedEnabled = true, proxyTargetClass = true)
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
@@ -27,19 +30,21 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http
                 .authorizeRequests()
-//                    .antMatchers("/resources/**", "/WEB-INF/jsp/*").permitAll()
+                    .antMatchers("/resources/**", "/WEB-INF/jsp/*").permitAll()
                 .antMatchers("/resources/**",
                         "/signup**",
-                        "/api/v1/prescription",
+                        "/static/**",
+                        "/assets/**",
+                        "/api/v1/patient",
                         "/executeSaveUser**", "/index**",
                         "/browser/index.html/**",
                         "/swagger-ui.html**",
                         "/js/**", "/css/**", "/img/**",
                         "/webjars/**").permitAll()
-                .anyRequest().authenticated()
+//                .anyRequest().authenticated()
                 .and().formLogin()
                 .loginPage("/login")
-                .defaultSuccessUrl("/prescription/list")
+                .defaultSuccessUrl("/patient/list")
                 .failureUrl("/login?error")
                 .permitAll().and().logout().permitAll();
     }
@@ -48,4 +53,13 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
         auth.userDetailsService(userDetailsService).passwordEncoder(bCryptPasswordEncoder());
     }
+
+//    @Override
+   /* public void addResourceHandlers(ResourceHandlerRegistry registry) {
+        registry.addResourceHandler("swagger-ui.html")
+                .addResourceLocations("classpath:/META-INF/resources/");
+
+        registry.addResourceHandler("/webjars/**")
+                .addResourceLocations("classpath:/META-INF/resources/webjars/");
+    }*/
 }

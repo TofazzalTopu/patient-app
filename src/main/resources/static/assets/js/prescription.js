@@ -1,16 +1,16 @@
-document.title = "Prescription List";
+document.title = "patient List";
 
 
 $(document).ready(function() {
 	$('#overlay').fadeOut();
 	
-	/*$('#prescriptionTable').DataTable({
+	/*$('#patientTable').DataTable({
         dom : "'<'col-sm-3'l><'col-sm-3 text-center'><'col-sm-3'>Bfrtip",
         buttons : [ 'copyHtml5', 'excelHtml5', 'csvHtml5', 'pdfHtml5' ],
         aaSorting: [ [1, 'desc'] ]
     });*/
 
-   /* $('#prescriptionTable').DataTable( {
+   /* $('#patientTable').DataTable( {
         dom: 'Bfrtip',
         buttons: [
             'copyHtml5',
