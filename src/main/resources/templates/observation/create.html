@@ -15,77 +15,78 @@
 </head>
 <body>
 <div th:replace="fragments/header :: header"></div>
-    <div class="content-wrapper">
+<div class="content-wrapper">
 
-        <div class="container">
-            <h2>Observation Form -Create Observation</h2>
-            <div class="form-group right-arrow navbar-right">
-                <h5>
-                <span> Observation: <a th:href="@{/observations/list/{patientId}(patientId=${patientId})}"> Observation List
+    <div class="container">
+        <h2>Observation Form -Create Observation</h2>
+        <div class="form-group right-arrow navbar-right">
+            <h5>
+                <span> Observation:
+                    <a th:href="@{/patients/{patientId}/observations(patientId=${patientId})}"> Observation List
 								</a></span>
-                </h5>
-            </div>
-            <form id="app" role="form" th:action="@{/observations/create}" th:object="${observation}"
-                  method="post">
-                <div class="box-body">
-                    <label style="padding-left: 30%; color: red; align-content: center;" th:if="${error}"
-                           th:text="${error}"/>
-                    <label style="padding-left: 30%; color: green; align-content: center;" th:if="${success}"
-                           th:text="${success}"/>
-
-                    <div class="row col-md-12">
-                        <input type="hidden" th:id="patientId"
-                               th:name="patientId" th:value="${patientId}"
-                               class="form-control" autofocus="autofocus">
-                        <div class="form-group col-md-4">
-                            <label for="height">Enter Height: &nbsp;<span style="color: red;">*</span></label>
-                            <input required type="text" th:field="*{height}" id="height"
-                                   name="height" th:value="${observation.height}"
-                                   class="form-control" autofocus="autofocus">
-                            <label th:if="${#fields.hasErrors('height')}" th:errors="*{height}"
-                                   th:class="'error text-danger'"> Enter Height </label>
-                        </div>
-
-                        <div class="form-group col-md-4">
-                            <label for="height">Enter weight: &nbsp;<span style="color: red;">*</span></label>
-                            <input required type="text" th:field="*{weight}" id="weight"
-                                   name="weight" th:value="${observation.weight}"
-                                   class="form-control" autofocus="autofocus">
-                            <label th:if="${#fields.hasErrors('weight')}" th:errors="*{weight}"
-                                   th:class="'error text-danger'"> Enter Weight </label>
-                        </div>
-
-                        <div class="form-group col-md-4">
-                            <label for="height">Enter BMI: &nbsp;<span style="color: red;">*</span></label>
-                            <input required type="text" th:field="*{BMI}" id="BMI"
-                                   name="BMI" th:value="${observation.BMI}"
-                                   class="form-control" autofocus="autofocus">
-                            <label th:if="${#fields.hasErrors('BMI')}" th:errors="*{BMI}"
-                                   th:class="'error text-danger'"> Enter BMI </label>
-                        </div>
-                        <div class="form-group col-md-4">
-                            <label for="height">Enter BP: &nbsp;<span style="color: red;">*</span></label>
-                            <input required type="text" th:field="*{BP}" id="BP"
-                                   name="BP" th:value="${observation.BP}"
-                                   class="form-control" autofocus="autofocus">
-                            <label th:if="${#fields.hasErrors('BP')}" th:errors="*{BP}"
-                                   th:class="'error text-danger'"> Enter BP </label>
-                        </div>
-                    </div>
-
-
-                </div>
-                <div class="row col-md-12">
-                    <div class="form-group col-md-4">
-                        <div class="box-footer">
-                            <button type="submit" name="submit" th:id="submit" class="btn btn-primary">Save</button>
-                        </div>
-                    </div>
-                </div>
-            </form>
-            <!--<div th:replace="fragments/footer :: footer">&copy; 2021 Observation project</div>-->
-
+            </h5>
         </div>
+        <form id="app" role="form"
+              th:action="@{/doctors/{doctorId}/patients/{patientId}/observations(doctorId=1, patientId=${patientId})}"
+              th:object="${observation}"
+              method="post">
+            <div class="box-body">
+                <label style="padding-left: 30%; color: red; align-content: center;" th:if="${error}"
+                       th:text="${error}"/>
+                <label style="padding-left: 30%; color: green; align-content: center;" th:if="${success}"
+                       th:text="${success}"/>
+
+                <div class="row col-md-12">
+                    <input type="hidden" th:id="patientId"
+                           th:name="patientId" th:value="${patientId}"
+                           class="form-control" autofocus="autofocus">
+                    <div class="form-group col-md-4">
+                        <label for="height">Enter Height: &nbsp;<span style="color: red;">*</span></label>
+                        <input required type="text" th:field="*{height}" id="height"
+                               name="height" th:value="${observation.height}"
+                               class="form-control" autofocus="autofocus">
+                        <label th:if="${#fields.hasErrors('height')}" th:errors="*{height}"
+                               th:class="'error text-danger'"> Enter Height </label>
+                    </div>
+
+                    <div class="form-group col-md-4">
+                        <label for="height">Enter weight: &nbsp;<span style="color: red;">*</span></label>
+                        <input required type="text" th:field="*{weight}" id="weight"
+                               name="weight" th:value="${observation.weight}"
+                               class="form-control" autofocus="autofocus">
+                        <label th:if="${#fields.hasErrors('weight')}" th:errors="*{weight}"
+                               th:class="'error text-danger'"> Enter Weight </label>
+                    </div>
+
+                    <div class="form-group col-md-4">
+                        <label for="height">Enter BMI: &nbsp;<span style="color: red;">*</span></label>
+                        <input required type="text" th:field="*{BMI}" id="BMI"
+                               name="BMI" th:value="${observation.BMI}"
+                               class="form-control" autofocus="autofocus">
+                        <label th:if="${#fields.hasErrors('BMI')}" th:errors="*{BMI}"
+                               th:class="'error text-danger'"> Enter BMI </label>
+                    </div>
+                    <div class="form-group col-md-4">
+                        <label for="height">Enter BP: &nbsp;<span style="color: red;">*</span></label>
+                        <input required type="text" th:field="*{BP}" id="BP"
+                               name="BP" th:value="${observation.BP}"
+                               class="form-control" autofocus="autofocus">
+                        <label th:if="${#fields.hasErrors('BP')}" th:errors="*{BP}"
+                               th:class="'error text-danger'"> Enter BP </label>
+                    </div>
+                </div>
+
+
+            </div>
+            <div class="row col-md-12">
+                <div class="form-group col-md-4">
+                    <div class="box-footer">
+                        <button type="submit" name="submit" th:id="submit" class="btn btn-primary">Save</button>
+                    </div>
+                </div>
+            </div>
+        </form>
     </div>
+</div>
 </body>
 </html>

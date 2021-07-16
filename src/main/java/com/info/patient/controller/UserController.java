@@ -1,7 +1,7 @@
-package com.info.prescription.controller;
+package com.info.patient.controller;
 
-import com.info.prescription.model.User;
-import com.info.prescription.service.UserService;
+import com.info.patient.model.User;
+import com.info.patient.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;

@@ -8,70 +8,12 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 
-    <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
-    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
-    <script th:src="@{/assets/js/patient.js}"></script>
-    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css"/>
-
-    <!--Library file for Datatable-->
-    <script type="text/javascript" src="https://cdn.datatables.net/buttons/1.6.1/js/buttons.html5.min.js"></script>
-    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.20/css/jquery.dataTables.min.css">
-    <link rel="stylesheet" type="text/css"
-          href="https://cdn.datatables.net/buttons/1.6.1/css/buttons.dataTables.min.css">
-    <script type="text/javascript" src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js"></script>
-    <script type="text/javascript" src="https://cdn.datatables.net/buttons/1.6.1/js/dataTables.buttons.min.js"></script>
-    <script src="//cdnjs.cloudflare.com/ajax/libs/datatables/1.10.19/js/dataTables.bootstrap.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
-    <script type="text/javascript">
-        $(document).ready(function () {
-            if ($(this).prop("checked") == true) {
-                console.log("Checkbox is checked.");
-            }
-            $(".male").click(function () {
-                if ($(this).prop("checked") == true) {
-                    console.log("Checkbox is checked.");
-                    $(".male").prop("checked", true);
-                    $(".female").prop("checked", false);
-                    $("#gender").val("M");
-                } else {
-                    $(".female").prop("checked", true);
-                    $(".male").prop("checked", false);
-                    $("#gender").val("F");
-                }
-            });
-
-            $(".female").click(function () {
-                if ($(this).prop("checked") == true) {
-                    console.log("Checkbox is checked.");
-                    $(".female").prop("checked", true);
-                    $(".male").prop("checked", false);
-                    $("#gender").val("F");
-                } else {
-                    console.log("Checkbox is unchecked.");
-                    $(".female").prop("checked", false);
-                    $(".male").prop("checked", true);
-                    $("#gender").val("M");
-                }
-            });
-
-            $("#patientAge").change(function () {
-                var max = parseInt($(this).attr('max'));
-                var min = parseInt($(this).attr('min'));
-                if ($(this).val() > max) {
-                    $(this).val(max);
-                }
-                else if ($(this).val() < min) {
-                    $(this).val(min);
-                }
-            });
-        });
-
-    </script>
 </head>
 <body>
 <div th:replace="fragments/header :: header"></div>
 <div class="container">
-    <form id="app" role="form" th:action="@{/patient/update/{id}(id=${patient.getId()})}"
+    <form id="app" role="form"
+          th:action="@{/doctors/{doctorId}/patients/{patientId}(doctorId=${doctorId}, patientId=${patient.getId()})}"
           th:object="${patient}"
           method="post">
         <div class="box-body">
@@ -80,7 +22,8 @@
                     <h2> Update Patient </h2> </br>
                     <div class="form-group right-arrow navbar-right">
                         <h5>
-                        <span> Patient: <a th:href="@{/patient/list}"> Patient List
+                        <span> Patient: <a
+                                th:href="@{/doctors/{doctorId}/patients(doctorId=${patient.getDoctor().getId()})}"> Patient List
 								</a></span>
                         </h5>
                     </div>
@@ -91,19 +34,55 @@
                 </div>
             </div>
             <div class="row col-md-12">
+                <input readonly type="hidden" th:field="*{user.id}" id="user.id"
+                       name="id" th:value="${patient.user.id}">
+                <input readonly type="hidden" th:field="*{id}" id="id"
+                       name="id" th:value="${patient.id}">
+                <div class="form-group col-md-4">
+                    <label for="user.username">User Name: &nbsp;<span style="color: red;">*</span></label>
+                    <input required type="text" th:field="*{user.username}" id="user.username"
+                           name="user.username" th:value="${patient.user.username}"
+                           class="form-control" autofocus="autofocus">
+                    <label th:if="${#fields.hasErrors('user.username')}" th:errors="*{user.username}"
+                           th:class="'error text-danger'"> Enter User Name </label>
+                </div>
+                <div class="form-group col-md-4">
+                    <label for="user.firstName">First Name: &nbsp;<span style="color: red;">*</span></label>
+                    <input required type="text" th:field="*{user.firstName}" id="user.firstName"
+                           name="user.firstName" th:value="${patient.user.firstName}"
+                           class="form-control" autofocus="autofocus">
+                    <label th:if="${#fields.hasErrors('user.firstName')}" th:errors="*{user.firstName}"
+                           th:class="'error text-danger'"> Enter First Name </label>
+                </div>
 
                 <div class="form-group col-md-4">
-                    <label for="user">Select Patient: &nbsp;<span style="color: red;">*</span></label>
-                    <select class="form-control" th:field="*{user.id}" th:id="user" th:name="user">
-                        <option value="0">select User</option>
-                        <option th:each="user : ${userList}" th:value="${user.id}" th:text="${user.username}"></option>
-                    </select>
-                    <label th:if="${#fields.hasErrors('user')}" th:errors="*{user}"
-                           th:class="'error text-danger'"> User Id </label>
+                    <label for="user.lastName">Last Name: &nbsp;<span style="color: red;">*</span></label>
+                    <input required type="text" th:field="*{user.lastName}" id="user.lastName"
+                           name="user.lastName" th:value="${patient.user.lastName}"
+                           class="form-control" autofocus="autofocus">
+                    <label th:if="${#fields.hasErrors('user.lastName')}" th:errors="*{user.lastName}"
+                           th:class="'error text-danger'"> Enter Last Name </label>
+                </div>
+                <div class="form-group col-md-4">
+                    <label for="user.email">Email: &nbsp;<span style="color: red;">*</span></label>
+                    <input required type="text" th:field="*{user.email}" id="user.email"
+                           name="user.email" th:value="${patient.user.email}"
+                           class="form-control" autofocus="autofocus">
+                    <label th:if="${#fields.hasErrors('user.email')}" th:errors="*{user.email}"
+                           th:class="'error text-danger'"> Enter Email </label>
+                </div>
+                <div class="form-group col-md-4">
+                    <label for="user.password">Password: &nbsp;<span style="color: red;">*</span></label>
+                    <input required type="password" th:field="*{user.password}" id="user.password"
+                           name="user.password" th:value="${patient.getUser().getPassword()}"
+                           class="form-control" autofocus="autofocus">
+                    <label th:if="${#fields.hasErrors('user.password')}" th:errors="*{user.password}"
+                           th:class="'error text-danger'"> Enter Password </label>
                 </div>
                 <div class="form-group col-md-4">
                     <label for="bloodGroup">Blood Group: &nbsp;<span style="color: red;">*</span></label>
-                    <select class="form-control" th:field="*{bloodGroup}" th:id="bloodGroup" th:name="bloodGroup">
+                    <select required class="form-control" th:id="bloodGroup" th:name="bloodGroup"
+                            th:value="${patient.getBloodGroup()}">
                         <option value="0">select Blood Group</option>
                         <option value="O+">O+</option>
                         <option value="O-">O-</option>
@@ -117,44 +96,34 @@
                     <label th:if="${#fields.hasErrors('bloodGroup')}" th:errors="*{bloodGroup}"
                            th:class="'error text-danger'"> Blood Group </label>
                 </div>
+
                 <div class="form-group col-md-4">
-                    <label for="admissionDate">Admission Date: &nbsp;<span style="color: red;">*</span></label>
-                    <input type="date" th:field="*{admissionDate}" id="admissionDate"
+                    <label for="admissionDate">Admission Date: &nbsp;<span
+                            style="color: red;">*</span></label>
+                    <input required type="date" th:field="*{admissionDate}" id="admissionDate"
                            name="admissionDate"
-                           th:value="${#dates.format(patient.admissionDate, 'dd-MM-yyyy')}"
+                           th:value="${#dates.format(patient.admissionDate, 'yyyy-MM-dd')}"
                            class="form-control" autofocus="autofocus">
                     <label th:if="${#fields.hasErrors('admissionDate')}" th:errors="*{admissionDate}"
                            th:class="'error'">Admission Date</label>
                 </div>
-            </div>
-
-            <div class="row col-md-12">
                 <div class="form-group col-md-4">
-                    <button type="submit" name="submit" th:id="submit" class="btn btn-primary">Update</button>
+                    <label for="user.dob"> Date Of Birth: &nbsp;<span
+                            style="color: red;">*</span></label>
+                    <input required type="date" th:field="*{user.dob}" id="user.dob"
+                           name="user.dob"
+                           th:value="${#dates.format(patient.user.dob, 'yyyy-MM-dd')}"
+                           class="form-control" autofocus="autofocus">
+                    <label th:if="${#fields.hasErrors('user.dob')}" th:errors="*{user.dob}"
+                           th:class="'error'"> Date Of Birth</label>
+                </div>
+                <div class="row col-md-12">
+                    <div class="form-group col-md-4">
+                        <button type="submit" name="submit" th:id="submit" class="btn btn-primary">Update</button>
+                    </div>
                 </div>
             </div>
-        </div>
-
-
     </form>
-    <!--<div th:replace="fragments/footer :: footer">&copy; 2021 Patient project</div>-->
 </div>
-<script type="text/javascript">
-    $(document).ready(function () {
-        var genderVal = $('#gender').val();
-        console.log("genderVal:" + genderVal);
-        if (genderVal == "M") {
-            $(".male").prop("checked", true);
-            $(".female").prop("checked", false);
-            $("#gender").val("M");
-        } else {
-            $(".female").prop("checked", true);
-            $(".male").prop("checked", false);
-            $("#gender").val("F");
-        }
-    });
-
-
-</script>
 </body>
 </html>

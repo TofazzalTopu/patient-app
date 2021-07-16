@@ -1,7 +1,7 @@
-package com.info.prescription.config;
+package com.info.patient.config;
 
-import com.info.prescription.model.User;
-import com.info.prescription.repository.UserRepository;
+import com.info.patient.model.User;
+import com.info.patient.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -25,12 +25,10 @@ public class UserDetailsServiceImpl implements UserDetailsService {
     @Transactional(readOnly = true)
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         try {
-            List<User> userList = userRepository.findAll();
             User user = userRepository.findByUsername(username);
-
             Set<GrantedAuthority> grantedAuthorities = new HashSet<>();
-            grantedAuthorities.add(new SimpleGrantedAuthority("USER"));
-            grantedAuthorities.add(new SimpleGrantedAuthority("ADMIN"));
+            grantedAuthorities.add(new SimpleGrantedAuthority("DOCTOR"));
+            grantedAuthorities.add(new SimpleGrantedAuthority("PATIENT"));
 
             return new org.springframework.security.core.userdetails.User(user.getUsername(), user.getPassword(),
                     grantedAuthorities);

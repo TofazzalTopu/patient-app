@@ -17,7 +17,6 @@
 
 <div class="content-wrapper">
     <div id="overlay">
-        <!--<img th:src="@{/assets/img/loader.gif}" width="100px"> Loading...-->
     </div>
 
     <div class="container">
@@ -25,8 +24,7 @@
         <h2>Observation Table -Observation List</h2>
         <div class="form-group right-arrow navbar-right">
             <h5>
-                <span> Observation: <a th:href="@{/patient/list}"> Patients List
-<!--                <span> Observation: <a th:href="@{/observations/create/{patientId}(patientId=${observation.getPatient().getId()})}"> Create Observation-->
+                <span> Observation: <a th:href="@{/doctors/{doctorId}/patients(doctorId=${doctorId})}"> Patients List
 								</a></span>
             </h5>
         </div>
@@ -44,7 +42,7 @@
                         <caption class="info"> Observation List</caption>
                         <thead>
                         <tr>
-                            <th> Serial </th>
+                            <th> Serial</th>
                             <th hidden> ID</th>
                             <th> Action</th>
                             <th> Patient Name</th>
@@ -61,10 +59,12 @@
 
                             <td hidden th:text="${observation.getId()}"></td>
                             <td style="text-align: center;">
-                                <a th:href="@{/observations/viewDetails/{id}(id=${observation.getId()})}" title="View"
+                                <a th:href="@{/patients/{patientId}/observations/{observationId}(patientId=${observation.getPatient().getId()}, observationId=${observation.getId()})}"
+                                   title="View"
                                    class="btn btn-xs btn-success"> <i class="fa fa-eye"></i></a>
+
                                 <span>
-                                <a th:href="@{/observations/delete/{id}(id=${observation.getId()})}" title="Delete"
+                                <a th:href="@{/doctors/{doctorId}/patients/{patientId}/observations/{observationId}/delete(doctorId=${observation.getPatient().getDoctor().getId()}, patientId=${observation.getPatient().getId()}, observationId=${observation.getId()})}" title="Delete"
                                    onclick="return confirm(' Are you sure you want to delete?');"
                                    class="btn btn-xs btn-warning"> <span class="glyphicon glyphicon-off"></span> </a>
                             </span>

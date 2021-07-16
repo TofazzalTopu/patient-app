@@ -1,4 +1,4 @@
-package com.info.prescription.config;
+package com.info.patient.config;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -10,7 +10,6 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
-import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 
 @Configuration
 @EnableWebSecurity
@@ -35,16 +34,15 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                         "/signup**",
                         "/static/**",
                         "/assets/**",
-                        "/api/v1/patient",
-                        "/executeSaveUser**", "/index**",
+                        "/executeSaveUser**",
+                        "/index**",
                         "/browser/index.html/**",
-                        "/swagger-ui.html**",
                         "/js/**", "/css/**", "/img/**",
                         "/webjars/**").permitAll()
 //                .anyRequest().authenticated()
                 .and().formLogin()
                 .loginPage("/login")
-                .defaultSuccessUrl("/patient/list")
+                .defaultSuccessUrl("/")
                 .failureUrl("/login?error")
                 .permitAll().and().logout().permitAll();
     }
@@ -53,13 +51,4 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
         auth.userDetailsService(userDetailsService).passwordEncoder(bCryptPasswordEncoder());
     }
-
-//    @Override
-   /* public void addResourceHandlers(ResourceHandlerRegistry registry) {
-        registry.addResourceHandler("swagger-ui.html")
-                .addResourceLocations("classpath:/META-INF/resources/");
-
-        registry.addResourceHandler("/webjars/**")
-                .addResourceLocations("classpath:/META-INF/resources/webjars/");
-    }*/
 }

@@ -1,11 +1,13 @@
-package com.info.prescription.service;
+package com.info.patient.service;
 
 
-import com.info.prescription.model.User;
-import com.info.prescription.repository.UserRepository;
+import com.info.patient.enums.Role;
+import com.info.patient.model.User;
+import com.info.patient.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -21,12 +23,15 @@ public class UserService {
     public List<User> findAll() {
         return userRepository.findAll();
     }
-    public List<User> findAllByUserType(String userType) {
-        return userRepository.findAllByUserType(userType);
+    public List<User> findAllByRole(String userType) {
+        return userRepository.findAllByRole(userType);
     }
 
     public boolean saveUser(User user) {
         try {
+            BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+            user.setPassword(encoder.encode(user.getPassword()));
+            user.setRole(Role.PATIENT.toString());
             User savedUser = userRepository.save(user);
             return true;
         } catch (Exception e) {
@@ -36,6 +41,13 @@ public class UserService {
 
     }
 
+    public User findById(Long userId){
+        return userRepository.findById(userId).get();
+    }
+
+    public User findByUsername(String username){
+        return userRepository.findByUsername(username);
+    }
 
     public boolean isLoggedIn(){
         Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();

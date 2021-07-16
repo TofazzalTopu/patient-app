@@ -1,7 +1,7 @@
-package com.info.prescription.repository;
+package com.info.patient.repository;
 
-import com.info.prescription.model.Observation;
-import com.info.prescription.model.Patient;
+import com.info.patient.model.Observation;
+import com.info.patient.model.Patient;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

@@ -92,18 +92,10 @@
                                 </a>
 
                                 <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-                                    <a class="dropdown-item" href="/patient/createForm"
-                                       th:href="@{/patient/createForm}">Create patient</a> </br>
-                                    <a class="dropdown-item" href="/patient/list" th:href="@{/patient/list}">patient
+                                    <a class="dropdown-item" href="/patients/createForm"
+                                       th:href="@{/patients/createForm}">Create patient</a> </br>
+                                    <a class="dropdown-item" href="/doctors/{doctorId}/patients" th:href="@{/doctors/{doctorId}/patients}">patient
                                         List</a> </b>
-                                    <a class="dropdown-item" href="/patient/report/list"
-                                       th:href="@{/patient/report/list}">patient Report</a> </br>
-
-                                    <a class="dropdown-item" href="/getMinConceptItem/list"
-                                       th:href="@{/getMinConceptItem/list}">API Response - Min Concept Item List</a> </br>
-
-                                    <a class="dropdown-item" href="/api/v1/patient"
-                                       th:href="@{/api/v1/patient}">patient API - "/api/v1/patient" </a> </br>
                                 </div>
                             </div>
 

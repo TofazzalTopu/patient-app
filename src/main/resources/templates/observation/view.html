@@ -13,9 +13,9 @@
 <div th:replace="fragments/header :: header"></div>
 
 <div class="container">
-    <form id="app" role="form" th:action="@{/observations/edit/{id}(id=${observation.getId()})}"
+    <form id="app" role="form" th:action="@{/doctors/{doctorId}/patients/{patientId}/observations/{observationId}(doctorId=${observation.getPatient().getId()}, patientId=${observation.getPatient().getDoctor().getId()}, observationId=${observation.getId()})}"
           th:object="${observation}"
-          method="post">
+          method="get">
         <div class="box-body">
             <div class="row col-md-12">
                 <div class="form-group">
@@ -23,7 +23,7 @@
                     <h2> View Observation Details</h2> <br/>
                     <div class="form-group right-arrow navbar-right">
                         <h5>
-                             <span> Observation: <a th:href="@{/observations/list/{patientId}(patientId=${observation.getPatient().getId()})}"> Observation List
+                             <span> Observation: <a th:href="@{/patients/{patientId}/observations(patientId=${observation.getPatient().getId()})}"> Observation List
 								</a></span>
                         </h5>
                     </div>
@@ -38,6 +38,10 @@
             <input type="hidden" th:id="patientId"
                    th:name="patientId" th:value="${observation.getPatient().getId()}"
                    class="form-control" autofocus="autofocus">
+            <input type="hidden" th:id="observation.id"
+                   th:name="observation.id" th:value="${observation.getId()}"
+                   class="form-control" autofocus="autofocus">
+
             <div class="form-group col-md-4">
                 <label for="height">Enter Height: &nbsp;<span style="color: red;">*</span></label>
                 <input readonly type="text" th:field="*{height}" id="height"
@@ -76,7 +80,7 @@
 
         <div class="row col-md-12">
             <div class="form-group col-md-4">
-                <a th:href="@{/observations/edit/{id}(id=${observation.getId()})}">
+                <a th:href="@{/doctors/{doctorId}/patients/{patientId}/observations/{observationId}(doctorId=${observation.getPatient().getId()}, patientId=${observation.getPatient().getDoctor().getId()}, observationId=${observation.getId()})}">
                     <button type="button" name="submit" th:id="submit" class="btn btn-primary">Edit</button>
                 </a>
             </div>

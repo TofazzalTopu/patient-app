@@ -1,8 +1,7 @@
-package com.info.prescription.model;
+package com.info.patient.model;
 
 import lombok.Data;
 import org.springframework.format.annotation.DateTimeFormat;
-import org.springframework.validation.annotation.Validated;
 
 import javax.persistence.*;
 /*
@@ -21,31 +20,25 @@ public class Patient {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    @ManyToOne(targetEntity = User.class, fetch = FetchType.EAGER)
+    @OneToOne(targetEntity = User.class, fetch = FetchType.EAGER)
     @JoinColumn(name = "user_id")
     private User user;
+
+    @OneToOne(targetEntity = Doctor.class, fetch = FetchType.EAGER)
+    @JoinColumn(name = "doctor_id")
+    private Doctor doctor;
 
     @Column(name = "blood_group")
     private String bloodGroup;
 
-    //    @NotBlank(message = "Patient Date is mandatory")
-//    @DateTimeFormat(pattern = "yyyy-MM-dd")
-    @DateTimeFormat(pattern = "dd-MM-yyyy")
-//    @DateTimeFormat(pattern = DateTimeFormat.ISO.DATE)
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     @Column(name = "admission_date")
     private Date admissionDate;
-
-//    @Column(name = "gender")
-//    private String gender;
 
     @Column(name = "create_date")
     private Date createDate;
 
-    //    @DateTimeFormat(pattern = "yyyy-MM-dd")
     @Column(name = "update_date")
     private Date updateDate;
     private Long updatedBy;
-
-    @Transient
-    private int count;
 }

@@ -1,4 +1,4 @@
-package com.info.prescription.model;
+package com.info.patient.model;
 
 import lombok.Data;
 
@@ -13,7 +13,7 @@ public class Observation {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    @ManyToOne(targetEntity = Patient.class, fetch = FetchType.EAGER)
+    @ManyToOne(targetEntity = Patient.class, fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinColumn(name = "patient_id", nullable = false)
     private Patient patient;
 

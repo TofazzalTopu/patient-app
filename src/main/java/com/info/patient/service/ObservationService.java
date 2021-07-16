@@ -1,8 +1,8 @@
-package com.info.prescription.service;
+package com.info.patient.service;
 
-import com.info.prescription.model.Observation;
-import com.info.prescription.model.Patient;
-import com.info.prescription.repository.ObservationRepository;
+import com.info.patient.model.Observation;
+import com.info.patient.model.Patient;
+import com.info.patient.repository.ObservationRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;

@@ -1,12 +1,19 @@
-package com.info.prescription.controller;
+package com.info.patient.controller;
 
-import com.info.prescription.service.UserService;
+import com.info.patient.model.Doctor;
+import com.info.patient.model.Patient;
+import com.info.patient.service.DoctorService;
+import com.info.patient.service.PatientService;
+import com.info.patient.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+
+import java.security.Principal;
 
 @Controller
 @RequestMapping(value = "/")
@@ -14,8 +21,25 @@ public class LoginController {
 
     @Autowired
     UserService userService;
+    @Autowired
+    DoctorService doctorService;
 
-    // @Comment: This method will render login form to login the system.
+    @Autowired
+    PatientService patientService;
+
+    @GetMapping("/")
+    String index(Principal principal) {
+        if(principal!= null){
+            Doctor doctor = doctorService.findDoctorIdByUserName(principal.getName());
+            if(doctor == null){
+                Patient patient = patientService.findAllByUserName(principal.getName());
+                return "redirect:/patients/"+patient.getId();
+            }
+            return "redirect:/doctors/"+doctor.getId()+"/patients";
+        }
+        return "redirect:/login";
+    }
+
     @RequestMapping(method = RequestMethod.GET, value = {"/login"})
     public String login(Model model, String error, String logout) {
         if (error != null)
@@ -27,17 +51,17 @@ public class LoginController {
         boolean isLoggedIn = userService.isLoggedIn();
         if (isLoggedIn) {
             model.addAttribute("isLoggedIn", isLoggedIn);
-            return "patient_list";
+            return "patient/patient_list";
         }
         model.addAttribute("isLoggedIn", isLoggedIn);
         return "login/login";
     }
 
-    @RequestMapping(value = {"/index"}, method = RequestMethod.GET)
+    /*@RequestMapping(value = {"/index"}, method = RequestMethod.GET)
     public String index(Model model) {
         Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         boolean isLoggedIn = userService.isLoggedIn();
         model.addAttribute("isLoggedIn", isLoggedIn);
         return "login/index";
-    }
+    }*/
 }

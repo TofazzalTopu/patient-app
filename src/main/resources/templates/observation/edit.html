@@ -14,7 +14,7 @@
 <body>
 <div th:replace="fragments/header :: header"></div>
 <div class="container">
-    <form id="app" role="form" th:action="@{/observations/update/{id}(id=${observation.getId()})}"
+    <form id="app" role="form" th:action="@{/doctors/{doctorId}/patients/{patientId}/observations/{observationId}(doctorId=${observation.getPatient().getId()}, patientId=${observation.getPatient().getDoctor().getId()}, observationId=${observation.getId()})}"
           th:object="${observation}"
           method="post">
         <div class="box-body">
@@ -37,6 +37,9 @@
 
                 <input type="hidden" th:id="patientId"
                        th:name="patientId" th:value="${observation.getPatient().getId()}"
+                       class="form-control" autofocus="autofocus">
+                <input type="hidden" th:id="observation.id"
+                       th:name="observation.id" th:value="${observation.getId()}"
                        class="form-control" autofocus="autofocus">
                 <div class="form-group col-md-4">
                     <label for="height">Enter Height: &nbsp;<span style="color: red;">*</span></label>
