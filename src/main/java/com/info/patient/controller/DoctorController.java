@@ -31,10 +31,13 @@ public class DoctorController {
 
     @Autowired
     ObservationService observationService;
+
     @Autowired
     PatientService patientService;
+
     @Autowired
     UserService userService;
+
     @Autowired
     DoctorService doctorService;
 

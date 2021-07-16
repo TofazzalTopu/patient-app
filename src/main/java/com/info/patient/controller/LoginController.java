@@ -40,7 +40,7 @@ public class LoginController {
         return "redirect:/login";
     }
 
-    @RequestMapping(method = RequestMethod.GET, value = {"/login"})
+    @GetMapping(value = {"/login"})
     public String login(Model model, String error, String logout) {
         if (error != null)
             model.addAttribute("error", "Your username and password is invalid.");
@@ -56,12 +56,4 @@ public class LoginController {
         model.addAttribute("isLoggedIn", isLoggedIn);
         return "login/login";
     }
-
-    /*@RequestMapping(value = {"/index"}, method = RequestMethod.GET)
-    public String index(Model model) {
-        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        boolean isLoggedIn = userService.isLoggedIn();
-        model.addAttribute("isLoggedIn", isLoggedIn);
-        return "login/index";
-    }*/
 }
