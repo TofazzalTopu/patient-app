@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
-
     <link rel="stylesheet" type="text/css"
           href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.3/css/bootstrap.min.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
@@ -11,7 +10,6 @@
         .bs-example {
             margin: 50px;
         }
-
         .menuId {
             background-color: #4CAF50;
             color: white;
@@ -49,14 +47,12 @@
             box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
             z-index: 1;
         }
-
         .dropdown-content a {
             color: black;
             padding: 12px 16px;
             text-decoration: none;
             dispy: block;
         }
-
         .dropdown-content a:hover {
             background-color: #ddd;
         }
@@ -64,7 +60,6 @@
         .dropdown:hover .dropdown-content {
             display: block;
         }
-
         .dropdown:hover .dropbtn {
             background-color: #3e8e41;
         }
@@ -83,7 +78,6 @@
                         <span class="icon-bar">  </span>
                         <span class="icon-bar"></span>
                     </button>
-                    <!--<a class="navbar-brand" href="#">Patient project</a>-->
                 </div>
                 <div class="navbar-collapse collapse">
                     <ul class="nav navbar-nav">
@@ -96,7 +90,6 @@
                             <form style="visibility: hidden" id="form" method="post" action="#"
                                   th:action="@{/logout}"></form>
                         </li>
-
                     </ul>
                 </div>
             </div>

@@ -29,9 +29,16 @@ public class DoctorService {
         }
         return null;
     }
-    public Doctor findDoctorIdByUserName(String username) {
-        User user = userService.findByUsername(username);
-        List<Doctor> doctor = doctorRepository.findByUser_Id(user.getId());
+    public Doctor findByUser(User user) {
+        List<Doctor> doctor = doctorRepository.findByUser(user);
+        if(doctor.isEmpty()){
+            return null;
+        }
+        return doctor.get(0);
+    }
+
+    public Doctor findByDoctorId(User user) {
+        List<Doctor> doctor = doctorRepository.findByUser(user);
         if(doctor.isEmpty()){
             return null;
         }

@@ -35,10 +35,10 @@ public class LoginController {
             User user = userService.findByUsername(principal.getName());
             if (user != null) {
                 if (user.getRole().equals(Role.DOCTOR.toString())) {
-                    Doctor doctor = doctorService.findDoctorIdByUserName(principal.getName());
+                    Doctor doctor = doctorService.findByUser(user);
                     return "redirect:/doctors/" + doctor.getId() + "/patients";
                 } else if (user.getRole().equals(Role.PATIENT.toString())) {
-                    Patient patient = patientService.findAllByUserName(principal.getName());
+                    Patient patient = patientService.findByUser(user);
                     return "redirect:/patients/" + patient.getId();
                 }
             }

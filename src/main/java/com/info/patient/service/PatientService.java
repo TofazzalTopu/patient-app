@@ -37,8 +37,7 @@ public class PatientService {
     public List<Patient> findAllByUser(User user){
         return patientRepository.findAllByUser(user);
     }
-    public Patient findAllByUserName(String username){
-        User user = userService.findByUsername(username);
+    public Patient findByUser(User user){
         List<Patient> patientList = patientRepository.findAllByUser(user);
         if(patientList.isEmpty()){
             return null;
