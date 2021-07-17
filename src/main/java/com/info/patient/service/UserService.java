@@ -31,14 +31,12 @@ public class UserService {
         try {
             BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
             user.setPassword(encoder.encode(user.getPassword()));
-            user.setRole(Role.PATIENT.toString());
             User savedUser = userRepository.save(user);
             return true;
         } catch (Exception e) {
             e.printStackTrace();
             return false;
         }
-
     }
 
     public User findById(Long userId){

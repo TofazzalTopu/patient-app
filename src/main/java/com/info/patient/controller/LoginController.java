@@ -1,7 +1,9 @@
 package com.info.patient.controller;
 
+import com.info.patient.enums.Role;
 import com.info.patient.model.Doctor;
 import com.info.patient.model.Patient;
+import com.info.patient.model.User;
 import com.info.patient.service.DoctorService;
 import com.info.patient.service.PatientService;
 import com.info.patient.service.UserService;
@@ -29,13 +31,17 @@ public class LoginController {
 
     @GetMapping("/")
     String index(Principal principal) {
-        if(principal!= null){
-            Doctor doctor = doctorService.findDoctorIdByUserName(principal.getName());
-            if(doctor == null){
-                Patient patient = patientService.findAllByUserName(principal.getName());
-                return "redirect:/patients/"+patient.getId();
+        if (principal != null) {
+            User user = userService.findByUsername(principal.getName());
+            if (user != null) {
+                if (user.getRole().equals(Role.DOCTOR.toString())) {
+                    Doctor doctor = doctorService.findDoctorIdByUserName(principal.getName());
+                    return "redirect:/doctors/" + doctor.getId() + "/patients";
+                } else if (user.getRole().equals(Role.PATIENT.toString())) {
+                    Patient patient = patientService.findAllByUserName(principal.getName());
+                    return "redirect:/patients/" + patient.getId();
+                }
             }
-            return "redirect:/doctors/"+doctor.getId()+"/patients";
         }
         return "redirect:/login";
     }
