@@ -14,7 +14,7 @@
 
 <div class="container">
     <form id="app" role="form"
-          th:action="@{/doctors/{doctorId}/patients/{patientId}(doctorId=${doctorId}, patientId=${patient.getId()})}"
+          th:action="@{/doctors/{doctorId}/patients/{patientId}(doctorId=${patient.getDoctor().getId()}, patientId=${patient.getId()})}"
           th:object="${patient}"
           method="get">
         <div class="box-body">
@@ -99,10 +99,10 @@
         </div>
         <div class="row col-md-12">
             <div class="form-group col-md-4">
-                <a th:href="@{/doctors/{doctorId}/patients/{patientId}(doctorId=${doctorId}, patientId=${patient.getId()})}">
+                <a th:href="@{/doctors/{doctorId}/patients/{patientId}(doctorId=${patient.getDoctor().getId()}, patientId=${patient.getId()})}">
                     <button type="button" name="submit" th:id="submit" class="btn btn-primary">Edit</button>
                 </a>
-                <a th:href="@{/doctors/{doctorId}/patients/{patientId}/observations(doctorId=${doctorId}, patientId=${patient.getId()})}"
+                <a th:href="@{/doctors/{doctorId}/patients/{patientId}/observations(doctorId=${patient.getDoctor().getId()}, patientId=${patient.getId()})}"
                    title="Create Observation">
                     <button type="button" name="createObservation" th:id="createObservation" class="btn btn-primary">
                         Create observation
