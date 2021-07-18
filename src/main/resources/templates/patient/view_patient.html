@@ -47,16 +47,12 @@
                     <input readonly type="text" th:field="*{user.username}" id="user.username"
                            name="user.username" th:value="${patient.user.username}"
                            class="form-control" autofocus="autofocus">
-                    <label th:if="${#fields.hasErrors('user.username')}" th:errors="*{user.username}"
-                           th:class="'error text-danger'"> Enter User Name </label>
                 </div>
                 <div class="form-group col-md-4">
                     <label for="user.firstName">First Name: &nbsp;<span style="color: red;">*</span></label>
                     <input readonly type="text" th:field="*{user.firstName}" id="user.firstName"
                            name="user.firstName" th:value="${patient.user.firstName}"
                            class="form-control" autofocus="autofocus">
-                    <label th:if="${#fields.hasErrors('user.firstName')}" th:errors="*{user.firstName}"
-                           th:class="'error text-danger'"> Enter First Name </label>
                 </div>
 
                 <div class="form-group col-md-4">
@@ -64,16 +60,12 @@
                     <input readonly type="text" th:field="*{user.lastName}" id="user.lastName"
                            name="user.lastName" th:value="${patient.user.firstName}"
                            class="form-control" autofocus="autofocus">
-                    <label th:if="${#fields.hasErrors('user.lastName')}" th:errors="*{user.firstName}"
-                           th:class="'error text-danger'"> Enter Last Name </label>
                 </div>
                 <div class="form-group col-md-4">
                     <label for="user.email">Email: &nbsp;<span style="color: red;">*</span></label>
                     <input readonly type="text" th:field="*{user.email}" id="user.email"
                            name="user.email" th:value="${patient.user.email}"
                            class="form-control" autofocus="autofocus">
-                    <label th:if="${#fields.hasErrors('user.lastName')}" th:errors="*{user.email}"
-                           th:class="'error text-danger'"> Enter Email </label>
                 </div>
 
                 <div class="form-group col-md-4">
@@ -81,8 +73,6 @@
                     <input readonly type="text" th:field="*{bloodGroup}" id="bloodGroup"
                            name="bloodGroup" th:value="${patient.bloodGroup}"
                            class="form-control" autofocus="autofocus">
-                    <label th:if="${#fields.hasErrors('bloodGroup')}" th:errors="*{bloodGroup}"
-                           th:class="'error text-danger'"> Blood Group </label>
                 </div>
 
                 <div class="form-group col-md-4">
@@ -92,8 +82,7 @@
                            name="admissionDate"
                            th:value="${#dates.format(patient.admissionDate, 'yyyy-MM-dd')}"
                            class="form-control" autofocus="autofocus">
-                    <label th:if="${#fields.hasErrors('admissionDate')}" th:errors="*{admissionDate}"
-                           th:class="'error'">Admission Date</label>
+
                 </div>
                 <div class="form-group col-md-4">
                     <label for="user.dob"> Date Of Birth: &nbsp;<span
@@ -110,10 +99,10 @@
         </div>
         <div class="row col-md-12">
             <div class="form-group col-md-4">
-                <a th:href="@{/doctors/{doctorId}/patients/{patientId}(doctorId=1, patientId=${patient.getId()})}">
+                <a th:href="@{/doctors/{doctorId}/patients/{patientId}(doctorId=${doctorId}, patientId=${patient.getId()})}">
                     <button type="button" name="submit" th:id="submit" class="btn btn-primary">Edit</button>
                 </a>
-                <a th:href="@{/doctors/{doctorId}/patients/{patientId}/observations(doctorId=1, patientId=${patient.getId()})}"
+                <a th:href="@{/doctors/{doctorId}/patients/{patientId}/observations(doctorId=${doctorId}, patientId=${patient.getId()})}"
                    title="Create Observation">
                     <button type="button" name="createObservation" th:id="createObservation" class="btn btn-primary">
                         Create observation
@@ -121,26 +110,8 @@
                 </a>
             </div>
         </div>
+    </form>
 </div>
 
-
-</form>
-</div>
-<script type="text/javascript">
-    $(document).ready(function () {
-        var genderVal = $('#gender').val();
-        console.log("genderVal:" + genderVal);
-        if (genderVal == "M") {
-            $(".male").prop("checked", true);
-            $(".female").prop("checked", false);
-            $("#gender").val("M");
-        } else {
-            $(".female").prop("checked", true);
-            $(".male").prop("checked", false);
-            $("#gender").val("F");
-        }
-    });
-
-</script>
 </body>
 </html>

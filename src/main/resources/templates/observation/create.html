@@ -27,7 +27,7 @@
             </h5>
         </div>
         <form id="app" role="form"
-              th:action="@{/doctors/{doctorId}/patients/{patientId}/observations(doctorId=1, patientId=${patientId})}"
+              th:action="@{/doctors/{doctorId}/patients/{patientId}/observations(doctorId=${observation.getPatient().getDoctor().getId()}, patientId=${patientId})}"
               th:object="${observation}"
               method="post">
             <div class="box-body">

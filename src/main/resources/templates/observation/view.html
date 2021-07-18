@@ -47,8 +47,6 @@
                 <input readonly type="text" th:field="*{height}" id="height"
                        name="height" th:value="${observation.height}"
                        class="form-control" autofocus="autofocus">
-                <label th:if="${#fields.hasErrors('height')}" th:errors="*{height}"
-                       th:class="'error text-danger'"> Enter Height </label>
             </div>
 
             <div class="form-group col-md-4">
@@ -56,8 +54,6 @@
                 <input readonly type="text" th:field="*{weight}" id="weight"
                        name="weight" th:value="${observation.weight}"
                        class="form-control" autofocus="autofocus">
-                <label th:if="${#fields.hasErrors('weight')}" th:errors="*{weight}"
-                       th:class="'error text-danger'"> Enter Weight </label>
             </div>
 
             <div class="form-group col-md-4">
@@ -65,16 +61,12 @@
                 <input readonly type="text" th:field="*{BMI}" id="BMI"
                        name="BMI" th:value="${observation.BMI}"
                        class="form-control" autofocus="autofocus">
-                <label th:if="${#fields.hasErrors('BMI')}" th:errors="*{BMI}"
-                       th:class="'error text-danger'"> Enter BMI </label>
             </div>
             <div class="form-group col-md-4">
                 <label for="height">Enter BP: &nbsp;<span style="color: red;">*</span></label>
                 <input readonly type="text" th:field="*{BP}" id="BP"
                        name="BP" th:value="${observation.BP}"
                        class="form-control" autofocus="autofocus">
-                <label th:if="${#fields.hasErrors('BP')}" th:errors="*{BP}"
-                       th:class="'error text-danger'"> Enter BP </label>
             </div>
         </div>
 
