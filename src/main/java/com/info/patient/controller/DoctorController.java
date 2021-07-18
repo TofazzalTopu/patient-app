@@ -1,6 +1,7 @@
 package com.info.patient.controller;
 
 
+import com.info.patient.component.BaseComponent;
 import com.info.patient.enums.Role;
 import com.info.patient.model.Doctor;
 import com.info.patient.model.Observation;
@@ -25,7 +26,7 @@ import java.util.List;
 
 @Controller
 @RequestMapping(value = "/doctors/{doctorId}/patients")
-public class DoctorController {
+public class DoctorController extends BaseResource {
 
     private static final Logger logger = LoggerFactory.getLogger(DoctorController.class);
 
@@ -192,7 +193,7 @@ public class DoctorController {
 
             model.addAttribute("observation", observation);
             model.addAttribute("observationList", observationList);
-            model.addAttribute("success", "Observation Created successfully.");
+            model.addAttribute("success", getMessage("data.save.successfully"));
             return "observation/view";
         } catch (Exception e) {
             model.addAttribute("error", "Please enter all mandatory fields!");

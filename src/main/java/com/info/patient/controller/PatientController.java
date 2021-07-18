@@ -1,5 +1,6 @@
 package com.info.patient.controller;
 
+import com.info.patient.component.BaseComponent;
 import com.info.patient.enums.Role;
 import com.info.patient.model.Observation;
 import com.info.patient.model.Patient;
@@ -23,7 +24,7 @@ import java.util.*;
 
 @Controller
 @RequestMapping(value = "/patients/{patientId}")
-public class PatientController {
+public class PatientController extends BaseResource {
     private static final Logger logger = LoggerFactory.getLogger(PatientController.class);
 
     @Autowired
