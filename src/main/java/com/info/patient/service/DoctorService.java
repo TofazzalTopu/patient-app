@@ -37,11 +37,4 @@ public class DoctorService {
         return doctor.get(0);
     }
 
-    public Doctor findByDoctorId(User user) {
-        List<Doctor> doctor = doctorRepository.findByUser(user);
-        if(doctor.isEmpty()){
-            return null;
-        }
-        return doctor.get(0);
-    }
 }

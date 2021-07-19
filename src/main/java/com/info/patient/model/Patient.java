@@ -21,10 +21,10 @@ public class Patient {
     private Long id;
 
     @OneToOne(targetEntity = User.class, fetch = FetchType.EAGER)
-    @JoinColumn(name = "user_id")
+    @JoinColumn(name = "user_id", unique = true)
     private User user;
 
-    @OneToOne(targetEntity = Doctor.class, fetch = FetchType.EAGER)
+    @ManyToOne(targetEntity = Doctor.class, fetch = FetchType.EAGER)
     @JoinColumn(name = "doctor_id")
     private Doctor doctor;
 
